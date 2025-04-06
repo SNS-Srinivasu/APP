@@ -1,15 +1,11 @@
-# Use the official Node.js runtime as a parent image
-FROM node:16
+# Use the official Nginx base image
+FROM nginx:alpine
 
-# Set the working directory inside the container
-WORKDIR /app
+# Copy your website files into the default Nginx public folder
+COPY . /usr/share/nginx/html
 
-# Copy the application files into the container
-COPY . .
+# Expose port 80
+EXPOSE 80
 
-# Expose port 3000 (or the port your app listens on)
-EXPOSE 3000
-
-# Define the command to run your app (start the Node.js server)
-CMD ["node", "app.js"]
-
+# Run nginx in the foreground
+CMD ["nginx", "-g", "daemon off;"]
